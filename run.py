@@ -81,7 +81,7 @@ def followUser(tweet):
 
 # Determines whether we should retweet a given tweet or not
 def shouldRetweet(tweet):
-	if BOT_NAME in tweet.text.lower() or 'updog bot' in tweet.text.lower():
+	if BOT_NAME in tweet.text.lower() or 'fungame bot' in tweet.text.lower() or or 'fun game bot' in tweet.text.lower():
 		print 'Not RTing: the tweet mentions us'
 		return False
 
@@ -115,8 +115,8 @@ def shouldIgnoreTweet(tweet):
 		return True
 
 	# Ignore the tweet if fun game is not in it
-	if 'game' not in tweet.text.lower():
-		print 'Ignoring tweet: Game not in text'
+	if 'fun game' not in tweet.text.lower():
+		print 'Ignoring tweet: "Fun game" not in text'
 		return True
 
 	MAX_HASHTAGS = 3
