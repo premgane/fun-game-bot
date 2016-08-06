@@ -33,6 +33,9 @@ BLACKLISTED_TEXT = ['rio', 'olympics', 'pokemon']
 with open('badwords.json') as data_file:
     BLACKLISTED_TEXT.extend(json.load(data_file))
 
+# At least one of these should appear in the tweet
+WHITELISTED_TEXT = ['fun game', 'fun drinking game', 'game called', 'try']
+
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
@@ -151,7 +154,13 @@ def shouldIgnoreTweet(tweet):
 			print 'Ignoring tweet: The tweet has blacklisted text'
 			return True
 
-	return False
+	# Should always be the final check
+	for goodword in WHITELISTED_TEXT:
+		if goodword in tweet.text.lower():
+			return False
+
+	print 'Ignoring tweet: The tweet has none of the whitelisted text'
+	return True
 
 
 # Tweet class with some attributes and the full JSON itself
