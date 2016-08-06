@@ -34,7 +34,7 @@ with open('badwords.json') as data_file:
     BLACKLISTED_TEXT.extend(json.load(data_file))
 
 # At least one of these should appear in the tweet
-WHITELISTED_TEXT = ['fun game', 'fun drinking game', 'game called', 'try']
+WHITELISTED_TEXT = ['fun game', 'fun drinking game', 'game called', 'to try', 'to play']
 
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
