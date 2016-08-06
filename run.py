@@ -84,7 +84,7 @@ def followUser(tweet):
 
 # Determines whether we should retweet a given tweet or not
 def shouldRetweet(tweet):
-	if BOT_NAME in tweet.text.lower() or 'fungame bot' in tweet.text.lower() or or 'fun game bot' in tweet.text.lower():
+	if BOT_NAME in tweet.text.lower() or 'fungame bot' in tweet.text.lower() or 'fun game bot' in tweet.text.lower():
 		print 'Not RTing: the tweet mentions us'
 		return False
 
