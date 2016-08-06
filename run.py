@@ -28,7 +28,7 @@ ACCESS_SECRET = parser.get('Twitter', 'ACCESS_SECRET')
 
 # Blacklists, all lowercase
 BLACKLISTED_USERS = []
-BLACKLISTED_TEXT = ['rio', 'olympics', 'pokemon']
+BLACKLISTED_TEXT = ['rio', 'olympics', 'pokemon', 'game to watch', 'game show', 'superbowl', 'world series', 'world cup']
 
 with open('badwords.json') as data_file:
     BLACKLISTED_TEXT.extend(json.load(data_file))
