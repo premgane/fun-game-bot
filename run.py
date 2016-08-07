@@ -28,8 +28,8 @@ ACCESS_SECRET = parser.get('Twitter', 'ACCESS_SECRET')
 
 # Blacklists, all lowercase
 BLACKLISTED_USERS = []
-BLACKLISTED_TEXT = ['fun game.', 'fun game!', 'is a fun game', 'was a fun game', 'most fun game', 'really fun game',
- 'pretty fun game', 'p fun game'
+BLACKLISTED_TEXT = ['fun game.', 'fun game!', 'is a fun game', 'was a fun game', 'most fun game',
+ 'pretty fun game', 'p fun game', 'like a fun game', 'kind of a fun game'
  'rio', 'olympics', 'superbowl', 'world series', 'world cup',
  'swapwithfriends', 'pokemon', 'game to watch', 'game show', 'game night',
  'baseball', 'football', 'basketball', 'hockey']
