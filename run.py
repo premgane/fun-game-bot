@@ -28,13 +28,16 @@ ACCESS_SECRET = parser.get('Twitter', 'ACCESS_SECRET')
 
 # Blacklists, all lowercase
 BLACKLISTED_USERS = []
-BLACKLISTED_TEXT = ['rio', 'olympics', 'pokemon', 'game to watch', 'game show', 'superbowl', 'world series', 'world cup', 'swapwithfriends']
+BLACKLISTED_TEXT = ['fun game.', 'fun game!', 'is a fun game', 'was a fun game', 'most fun game', 'really fun game'
+ 'rio', 'olympics', 'superbowl', 'world series', 'world cup',
+ 'swapwithfriends', 'pokemon', 'game to watch', 'game show', 'game night',
+ 'baseball', 'football', 'basketball', 'hockey']
 
 with open('badwords.json') as data_file:
     BLACKLISTED_TEXT.extend(json.load(data_file))
 
 # At least one of these should appear in the tweet
-WHITELISTED_TEXT = ['fun game', 'fun drinking game', 'game called', 'to try', 'to play']
+WHITELISTED_TEXT = ['fun game', 'fun drinking game']
 
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
@@ -98,11 +101,6 @@ def shouldRetweet(tweet):
 		print 'Not RTing: the tweet quotes us'
 		return False
 
-	# Don't RT if they're asking what updog is
-	if 'what\'s updog' in tweet.text.lower() or 'what is updog' in tweet.text.lower():
-		print 'Not RTing: the tweet asks what updog is'
-		return False
-
 	# Don't RT if it's a reply to someone
 	if tweet.text[0] == '@':
 		print 'Not RTing: the tweet is a reply to someone'
@@ -114,12 +112,14 @@ def shouldRetweet(tweet):
 def shouldIgnoreTweet(tweet):
 	# Ignore the tweet if it's us or if we think the tweeter is a bot
 	if 'game' in tweet.screen_name.lower() or 'bot' in tweet.screen_name.lower() or 'ebooks' in tweet.screen_name.lower():
-		print 'Ignoring tweet: The tweeter\'s handle contains updog or bot'
+		print 'Ignoring tweet: The tweeter is a bot'
 		return True
 
-	# Ignore the tweet if fun game is not in it
-	if 'fun game' not in tweet.text.lower():
-		print 'Ignoring tweet: "Fun game" not in text'
+	# Ignore the tweet if fun game is not in the first half of the tweet
+	first_half_len = len(tweet.text) / 2
+	first_half = tweet.text.lower()[:first_half_len]
+	if 'fun' not in first_half or 'game' not in first_half:
+		print 'Ignoring tweet: "Fun game" not in 1st 1/2'
 		return True
 
 	MAX_HASHTAGS = 3
@@ -151,7 +151,7 @@ def shouldIgnoreTweet(tweet):
 
 	for badword in BLACKLISTED_TEXT:
 		if badword in tweet.text.lower():
-			print 'Ignoring tweet: The tweet has blacklisted text'
+			print 'Ignoring tweet: Blacklisted text'
 			return True
 
 	# Should always be the final check
